@@ -23,6 +23,7 @@
 
         </activity>
         <activity android:name=".fabclass"/>
+        <activity android:name=".Parser"/>
         <activity
 
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
