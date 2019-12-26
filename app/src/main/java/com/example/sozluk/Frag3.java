@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class Frag3 extends Fragment {
     private RecyclerView rv;
     private CardAdapter2 adapter;
+    private DbConnection db;
 
 
     @Override
@@ -27,34 +29,31 @@ public class Frag3 extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =inflater.inflate(R.layout.fragment_frag3, container,false);
+        db= new DbConnection(getActivity());
+        dbCopy();
         rv= (RecyclerView)view.findViewById(R.id.rv2);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        ArrayList<String> words = new ArrayList<>() ;
-        words.add("a");
-        words.add("b");
-        words.add("c");
-        words.add("d");
-        words.add("x");
-        words.add("y");
 
+        final ArrayList<Word> wordArrayList = new WordData().AllWords(db);
 
-        ArrayList<String> means = new ArrayList<>() ;
-        means.add("mean1");
-        means.add("mean2");
-        means.add("mean3");
-        means.add("mean4");
-        means.add("mean5");
-        means.add("mean6");
-
-        adapter= new CardAdapter2(getActivity(),words,means);
+        adapter= new CardAdapter2(getActivity(),wordArrayList);
         rv.setAdapter(adapter);
 
 
 
         return view;
     }
+    public void dbCopy(){
+        DatabaseCopyHelper helper = new DatabaseCopyHelper(getActivity())  ;
+        try {
+            helper.createDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        helper.openDataBase();
 
+    }
 
 }

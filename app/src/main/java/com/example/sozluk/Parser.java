@@ -3,8 +3,10 @@ package com.example.sozluk;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,12 +29,17 @@ public class Parser extends AppCompatActivity {
     private RecyclerView rv;
     private RelativeLayout rl;
     private FloatingActionButton fab;
-    //private CardAdapter3 adapter3;
     private RvAdapter adapter3;
+    private String item;
+    private ArrayList<String> get;
+    private WordData wordData;
+    private DbConnection db;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parser_design);
+        db= new DbConnection(this);
+        dbCopy();
 
         ArrayList<String> array = (ArrayList<String>) getIntent().getSerializableExtra("array");
 
@@ -41,16 +49,26 @@ public class Parser extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rl=findViewById(R.id.rl3);
         array= Parsing(array);
+        Log.e("array",Integer.toString(array.size()));
         array=Control(array);
+
 
         adapter3= new RvAdapter(array);
         rv.setAdapter(adapter3);
         enableSwipeToDeleteAndUndo();
 
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //database'e kayıt işlemi
+                get = adapter3.getData();
+                wordData= new WordData();
+
+                String msg;
+                for(int i=0;i<get.size();i++){
+                    msg=wordData.InsertWordToList(db,get.get(i));
+                    Toast.makeText(getApplicationContext(), "kelimeler eklendi", Toast.LENGTH_SHORT).show();
+                }
 
                 //sonra mainactiivity e dönüş
             }
@@ -61,7 +79,9 @@ public class Parser extends AppCompatActivity {
 
         ArrayList<String> array2 = new ArrayList<String>();
         String[] str;
-        str=array.get(0).split("([ ]|[.]|[,])+");
+        //str=array.get(0).split("([ ]|[.]|[,])+");
+        str=array.get(0).split("[\\s.,]+");
+
         for(int i=0; i<str.length;i++){
 
             array2.add(str[i]);
@@ -75,7 +95,8 @@ public class Parser extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 final int position = viewHolder.getAdapterPosition();
-                final String item = adapter3.getData().get(position);
+                //final String item = adapter3.getData().get(position);
+                item = adapter3.getData().get(position);
 
                 adapter3.removeItem(position);
 
@@ -93,36 +114,30 @@ public class Parser extends AppCompatActivity {
                 snackbar.show();
             }
         };
+
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(rv);
     }
 
     private ArrayList<String> Control(ArrayList<String> array){
 
-      /*  for(int i=0;i<array.size();i++){
-
-            for (int y=i+1;y<array.size();y++){
-
-                if (array.get(i).equals(array.get(y))){
-                    array.remove(i);
-                    i--;
-                }
-
-
-            }
-            }*/
         Set <String> set = new HashSet<String>(array);
         array.clear();
         array.addAll(set);
 
 
-
-
-
-
-
         return array;
     }
 
+    public void dbCopy(){
+        DatabaseCopyHelper helper = new DatabaseCopyHelper(this)  ;
+        try {
+            helper.createDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        helper.openDataBase();
+
+    }
 
 }

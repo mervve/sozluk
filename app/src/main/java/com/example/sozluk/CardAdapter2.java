@@ -13,18 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardAdapter2 extends RecyclerView.Adapter<CardAdapter2.CardTasarimTutucu2> {
 
     private Context mContext;
-    private List<String> words;
-    private List<String> means;
+    private List<Word> words;
 
-    public CardAdapter2(Context mContext, List<String> words,List<String> means) {
+
+    public CardAdapter2(Context mContext, ArrayList<Word> words) {
         this.mContext = mContext;
         this.words =  words;
-        this.means = means;
+
     }
 
 
@@ -51,8 +52,8 @@ public class CardAdapter2 extends RecyclerView.Adapter<CardAdapter2.CardTasarimT
 
     @Override
     public void onBindViewHolder(@NonNull final CardTasarimTutucu2 holder, int position) {
-        final String word = words.get(position);
-        final String mean = means.get(position);
+        final String word = words.get(position).getName();
+        final String mean = words.get(position).getMean();
         holder.rowText.setText(word);
 
        holder.button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
