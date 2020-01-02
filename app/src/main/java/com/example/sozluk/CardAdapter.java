@@ -13,10 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardTasarimTutucu> {
     private Context mContext;
@@ -62,50 +60,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardTasarimTut
         sharedP= new ArrayList<>();
         e=sp.edit();
         word = words.get(position).getMean();
-        Log.e("getMean",word);
         id= words.get(position).getId();
         str= new StringBuffer("");
 
-      /*  holder.rowText.setText(word);
-        holder.rowText.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                if (holder.rowText.isChecked()) {
-
-                    sharedP.remove(sharedP.indexOf(word));
-                    flag=false;
-                    holder.rowText.setCheckMarkDrawable(null);
-                    holder.rowText.setChecked(false);
-
-                } else {
-
-                    sharedP.add(word);
-                    flag=true;
-                    Log.e("deneme",word);
-                    holder.rowText.setCheckMarkDrawable(R.drawable.ic_check_black_24dp);
-                    holder.rowText.setChecked(true);
-
-                }
-
-                str.delete(0,str.length());
-                for(int i=0;i<sharedP.size();i++){
-                    Log.e("sharedpreference1",sharedP.get(i).toString());
-                    str.append(sharedP.get(i));
-                    str.append(".");
-
-                }
-                if(flag==false){
-                    e.remove("str");
-                    e.commit();
-                }
-                Log.e("size",str.toString());
-                e.putString("str", str.toString());
-                e.commit();
-
-            }
-
-        });*/
        holder.rowText.setText(word);
         holder.rowText.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.example.sozluk;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class Parser extends AppCompatActivity {
     private ArrayList<String> get;
     private WordData wordData;
     private DbConnection db;
+    private Intent intent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class Parser extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rl=findViewById(R.id.rl3);
         array= Parsing(array);
-        Log.e("array",Integer.toString(array.size()));
+
         array=Control(array);
 
 
@@ -63,14 +65,17 @@ public class Parser extends AppCompatActivity {
             public void onClick(View v) {
                 get = adapter3.getData();
                 wordData= new WordData();
-
                 String msg;
-                for(int i=0;i<get.size();i++){
-                    msg=wordData.InsertWordToList(db,get.get(i));
-                    Toast.makeText(getApplicationContext(), "kelimeler eklendi", Toast.LENGTH_SHORT).show();
-                }
 
-                //sonra mainactiivity e dönüş
+                for(int i=0;i<get.size();i++){
+
+                    msg=wordData.InsertWordToList(db,get.get(i));
+
+                }
+                db.close();
+                intent = new Intent(Parser.this,MainActivity.class);
+                startActivity(intent);
+
             }
         });
     }

@@ -22,6 +22,7 @@ public class Frag3 extends Fragment {
     private RecyclerView rv;
     private CardAdapter2 adapter;
     private DbConnection db;
+    private ArrayList<Word> wordArrayList;
 
 
     @Override
@@ -36,7 +37,7 @@ public class Frag3 extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
 
-        final ArrayList<Word> wordArrayList = new WordData().AllWords(db);
+        wordArrayList = new WordData().AllWords2(db);
 
         adapter= new CardAdapter2(getActivity(),wordArrayList);
         rv.setAdapter(adapter);

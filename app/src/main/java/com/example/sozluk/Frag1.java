@@ -56,6 +56,7 @@ public class Frag1 extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         imageButton=view.findViewById(R.id.imageButton);
         fab=view.findViewById(R.id.floatingActionButton4);
+        fab.hide();
         db= new DbConnection(getActivity());
         dbCopy();
 
@@ -74,6 +75,7 @@ public class Frag1 extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fab.show();
                 String ing=editText.getText().toString();
                 for(int i=0;i<wordArrayList.size();i++){
 
@@ -88,13 +90,13 @@ public class Frag1 extends Fragment {
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //check olmuş kelimeler wordData2 ye
+
                         int id = sp.getInt("str",0);
                         worddata= new WordData();
 
                         String msg=worddata.InsertWordToList2(db,id);
                         Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
-
+                        fab.hide();
 
 
 

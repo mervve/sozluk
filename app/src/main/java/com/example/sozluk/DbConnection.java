@@ -13,7 +13,7 @@ public class DbConnection extends SQLiteOpenHelper implements Serializable {
 
     public DbConnection (@Nullable Context context) {
 
-        super(context, "dictionary.db", null, 8);
+        super(context, "dictionary.db", null, 22);
 
 
     }
@@ -25,12 +25,18 @@ public class DbConnection extends SQLiteOpenHelper implements Serializable {
                 "\t\"Name\"\tTEXT,\n" +
                 "\t\"Mean\"\tTEXT\n" +
                 ");");
-        db.execSQL("CREATE TABLE IF NOT EXISTS \"MyList\" (\n" +
+        /*db.execSQL("CREATE TABLE IF NOT EXISTS \"MyList\" (\n" +
                 "\t\"Id\"\tINTEGER NOT NULL,\n" +
                 "\t\"Name\"\tTEXT,\n" +
                 "\t\"Mean\"\tTEXT,\n" +
                 "\tFOREIGN KEY(\"Id\") REFERENCES \"Words\"(\"Id\"),\n" +
                 "\tPRIMARY KEY(\"Id\")\n" +
+                ");");*/
+        db.execSQL("CREATE TABLE \"MyList\" (\n" +
+                "\t\"Id\"\tINTEGER NOT NULL,\n" +
+                "\t\"Name\"\tTEXT,\n" +
+                "\t\"Mean\"\tTEXT,\n" +
+                "\tFOREIGN KEY(\"Id\") REFERENCES \"Words\"(\"Id\")\n" +
                 ");");
 
 
@@ -46,5 +52,9 @@ public class DbConnection extends SQLiteOpenHelper implements Serializable {
                 "VALUES('a','b');");
         db.execSQL("INSERT INTO Words (Name,Mean)\n" +
                 "VALUES('c','d');");
+        db.execSQL("INSERT INTO Words (Name,Mean)\n" +
+                "VALUES('and','ve');");
+        db.execSQL("INSERT INTO Words (Name,Mean)\n" +
+                "VALUES('similar','benzer');");
     }
 }
