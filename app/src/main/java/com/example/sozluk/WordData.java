@@ -160,6 +160,7 @@ public class WordData {
         ArrayList<Word> array= AllWords4(data,db);
         for(int i=0;i<array.size();i++){
             if (kelime.equals(array.get(i).getName())){
+
                 w=array.get(i);
 
             }
@@ -179,12 +180,12 @@ public class WordData {
         ContentValues values= new ContentValues();
 
         String msg;
-        Boolean bool = ifExists2(id,db);
+        Boolean bool = ifExists2(data,id,db);
         if(bool){
             msg= "kelime zaten var";
         }
         else {
-            yeni = FindWord2(id, db);
+            yeni = FindWord2(data,id, db);
 
             if(yeni!=null){
                 values.put("Id", yeni.getId());
@@ -203,39 +204,37 @@ public class WordData {
         db.close();
         return msg;
     }
-    public Word FindWord2( int id,SQLiteDatabase db) {
+    public Word FindWord2(DbConnection data, int id,SQLiteDatabase db) {
 
         Word w= new Word();
 
-        Cursor c = db.rawQuery("SELECT * FROM Words WHERE Words.Id==id",null);
 
+        ArrayList<Word> array = AllWords3(data,db);
 
-        if(c!=null){
+        for(int i=0;i<array.size();i++){
 
-        while (c.moveToNext()){
-            w = new Word(c.getInt(c.getColumnIndex("Id"))
-                    ,c.getString(c.getColumnIndex("Name"))
-                    ,c.getString(c.getColumnIndex("Mean")));
+            if(id==array.get(i).getId()){
+                w=array.get(i);
+
+            }
         }
-        c.close();
-        return w;
-        }
+        if(w!=null){
+            return w;}
         else return null;
     }
 
-    public Boolean ifExists2 ( int id,SQLiteDatabase db) {
+    public Boolean ifExists2 (DbConnection data, int id,SQLiteDatabase db) {
 
-        Word w= new Word();
-        Cursor c = db.rawQuery("SELECT * FROM Mylist WHERE MyList.Id==id",null);
+        Word w= null;
 
+        ArrayList<Word> array= AllWords4(data,db);
+        for(int i=0;i<array.size();i++){
+            if (id==array.get(i).getId()){
 
-        while (c.moveToNext()){
-            w = new Word(c.getInt(c.getColumnIndex("Id"))
-                    ,c.getString(c.getColumnIndex("Name"))
-                    ,c.getString(c.getColumnIndex("Mean")));
+                w=array.get(i);
 
+            }
         }
-        c.close();
 
         if(w!=null) return true;
         else return false;

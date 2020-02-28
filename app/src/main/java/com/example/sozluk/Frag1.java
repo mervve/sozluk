@@ -23,12 +23,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 
 public class Frag1 extends Fragment {
     private RecyclerView rv;
-    private CardAdapter adapter;
+    private CardAdapter4 adapter;
     private EditText editText;
     private ImageButton imageButton;
     private FloatingActionButton fab;
@@ -69,7 +69,7 @@ public class Frag1 extends Fragment {
 
         wordArrayList = new WordData().AllWords(db);
 
-        adapter= new CardAdapter(getActivity(),wordArrayList);
+        adapter= new CardAdapter4(getActivity(),wordArrayList);
         rv.setAdapter(adapter);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +83,7 @@ public class Frag1 extends Fragment {
                         words.add(wordArrayList.get(i));
                     }
                 }
-                adapter= new CardAdapter(getActivity(),words);
+                adapter= new CardAdapter4(getActivity(),words);
                 rv.setAdapter(adapter);
 
 
@@ -91,13 +91,23 @@ public class Frag1 extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        int id = sp.getInt("str",0);
+                        String id = sp.getString("str",null);
                         worddata= new WordData();
+                        /*ArrayList<String> array= new ArrayList<>();
+                        if(id.contains(",")) {
+                            array = (ArrayList<String>) Arrays.asList(id.split(","));
+                        }*/
 
-                        String msg=worddata.InsertWordToList2(db,id);
-                        Toast.makeText(getActivity(),msg,Toast.LENGTH_LONG).show();
+                        ArrayList<String> array =new ArrayList<>(Arrays.asList(id.split(","))) ;
+                        for(int i=0;i<array.size();i++){
+                            String msg=worddata.InsertWordToList2(db,Integer.valueOf(array.get(i)));
+                            Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+                        }
+                        ArrayList<Word> wrd= new ArrayList<>();
+                        wrd=worddata.AllWords2(db);
+                        Log.e("mylist",Integer.toString(wrd.size()));
+
                         fab.hide();
-
 
 
 

@@ -24,7 +24,8 @@
             android:layout_marginRight="31dp"
             android:layout_marginBottom="34dp"
             android:clickable="true"
-            android:src="@drawable/ic_add_circle_black_24dp" />
+            android:src="@drawable/ic_add_circle_black_24dp"
+            app:backgroundTint="@color/colorPrimaryDark" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"

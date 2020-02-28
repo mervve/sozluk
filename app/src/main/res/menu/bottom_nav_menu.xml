@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
         android:id="@+id/manuel"
         android:icon="@drawable/pen"
@@ -13,4 +14,8 @@
         android:id="@+id/training"
         android:icon="@drawable/dumbbell"
         android:title="Training" />
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/ic_font_download_black_24dp"
+        android:title="Add" />
 </menu>

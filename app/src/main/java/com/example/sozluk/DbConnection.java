@@ -13,7 +13,7 @@ public class DbConnection extends SQLiteOpenHelper implements Serializable {
 
     public DbConnection (@Nullable Context context) {
 
-        super(context, "dictionary.db", null, 22);
+        super(context, "dictionary.db", null, 27);
 
 
     }
@@ -50,6 +50,8 @@ public class DbConnection extends SQLiteOpenHelper implements Serializable {
         //bunlari create e tasi
         db.execSQL("INSERT INTO Words (Name,Mean)\n" +
                 "VALUES('a','b');");
+        db.execSQL("INSERT INTO Words (Name,Mean)\n" +
+                "VALUES('a','f');");
         db.execSQL("INSERT INTO Words (Name,Mean)\n" +
                 "VALUES('c','d');");
         db.execSQL("INSERT INTO Words (Name,Mean)\n" +

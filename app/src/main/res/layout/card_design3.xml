@@ -10,7 +10,7 @@
         android:id="@+id/cv3"
         android:layout_width="match_parent"
         android:layout_height="78dp"
-        app:cardBackgroundColor="@color/colorAccent">
+        app:cardBackgroundColor="@color/color9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/color9"
                 android:text="TextView"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
