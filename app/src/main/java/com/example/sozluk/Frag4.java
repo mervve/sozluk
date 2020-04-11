@@ -120,7 +120,7 @@ public class Frag4 extends Fragment {
         else {
             for (int i = 0; i < words.size(); i++) {
 
-                if (words.get(i).getName() == str1 && words.get(i).getMean() == str2) {
+                if (words.get(i).getName().equals(str1)  && words.get(i).getMean().equals(str2) ) {
 
                     flag = true;
                 }

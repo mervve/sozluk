@@ -57,6 +57,9 @@ public class Frag1 extends Fragment {
         imageButton=view.findViewById(R.id.imageButton);
         fab=view.findViewById(R.id.floatingActionButton4);
         fab.hide();
+
+
+
         db= new DbConnection(getActivity());
         dbCopy();
 
@@ -75,7 +78,7 @@ public class Frag1 extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fab.show();
+                //fab.show();
                 String ing=editText.getText().toString();
                 for(int i=0;i<wordArrayList.size();i++){
 
@@ -93,10 +96,7 @@ public class Frag1 extends Fragment {
 
                         String id = sp.getString("str",null);
                         worddata= new WordData();
-                        /*ArrayList<String> array= new ArrayList<>();
-                        if(id.contains(",")) {
-                            array = (ArrayList<String>) Arrays.asList(id.split(","));
-                        }*/
+
 
                         ArrayList<String> array =new ArrayList<>(Arrays.asList(id.split(","))) ;
                         for(int i=0;i<array.size();i++){

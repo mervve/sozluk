@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class WordData {
 
-     private MainActivity activity;
+     //private MainActivity activity;
 
     public ArrayList<Word> AllWords(DbConnection data){
 

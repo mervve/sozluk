@@ -1,6 +1,7 @@
 package com.example.sozluk;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
         private Button button1;
         private Button button2;
+        private Button button3;
         private TextView userNameTxt;
         private FirebaseAuth auth;
         private FirebaseUser firebaseUser;
@@ -52,6 +54,7 @@ import com.google.firebase.auth.FirebaseUser;
             setContentView(R.layout.profile);
             button1=findViewById(R.id.button5);
             button2=findViewById(R.id.button6);
+            button3=findViewById(R.id.button7);
             userNameTxt=findViewById(R.id.textView5);
 
             auth = FirebaseAuth.getInstance();
@@ -81,6 +84,16 @@ import com.google.firebase.auth.FirebaseUser;
                 public void onClick(View v) {
                     str = "Lütfen yeni şifreyi giriniz.";
                     changeEmailOrPasswordFunc(str,false);
+                }
+            });
+
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(Profile.this,Scroll.class);
+                    startActivity(intent);
+
                 }
             });
 
@@ -174,6 +187,7 @@ import com.google.firebase.auth.FirebaseUser;
             mAlertDialog.show();
 
         }
+
 
 
     }

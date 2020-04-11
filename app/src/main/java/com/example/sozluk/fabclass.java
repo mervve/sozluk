@@ -2,11 +2,14 @@ package com.example.sozluk;
 
         import android.Manifest;
         import android.content.ContentValues;
+        import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.graphics.Bitmap;
         import android.graphics.drawable.BitmapDrawable;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
         import android.net.Uri;
         import android.os.Bundle;
         import android.provider.MediaStore;
@@ -74,9 +77,17 @@ public class fabclass extends AppCompatActivity {
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(fabclass.this,Parser.class);
-                intent.putExtra("array",array);
-                startActivity(intent);
+
+                if(internetKontrol()){ //internet kontrol methodu çağırılıyor
+                    Intent intent= new Intent(fabclass.this,Parser_2.class);
+                    intent.putExtra("array",array);
+                    startActivity(intent);
+                }else{
+                    Intent intent= new Intent(fabclass.this,Parser.class);
+                    intent.putExtra("array",array);
+                    startActivity(intent);
+                }
+
             }
         });
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -215,6 +226,16 @@ public class fabclass extends AppCompatActivity {
 
             }
         }
+    }
+    protected boolean internetKontrol() { //interneti kontrol eden method
+        // TODO Auto-generated method stub
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 
 }

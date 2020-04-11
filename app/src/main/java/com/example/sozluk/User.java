@@ -2,12 +2,12 @@ package com.example.sozluk;
 
 public class User {
     private String key;
-    private int id;
+    private String id;
 
     private String mail;
     private String password;
 
-    public User(String key, int id,  String mail, String password) {
+    public User(String key, String id,  String mail, String password) {
         this.key = key;
         this.id = id;
 
@@ -23,11 +23,11 @@ public class User {
         this.key = key;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -100,7 +100,7 @@ public class Parser extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 final int position = viewHolder.getAdapterPosition();
-                //final String item = adapter3.getData().get(position);
+
                 item = adapter3.getData().get(position);
 
                 adapter3.removeItem(position);
